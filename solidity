@@ -1,0 +1,31 @@
+explain this code // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MyToken {
+
+    // Public variables
+    string public tokenName = "CNCR";
+    string public tokenAbbrv = "CHAITANYA";
+    uint256 public totalSupply = 0;
+
+    // Mapping variable
+    mapping(address => uint256) public balances;
+
+    // Mint function
+    function mint(address _address, uint256 _value) public {
+        require(_address != address(0), "Invalid address");
+        require(_value > 0, "Value must be greater than zero");
+
+        totalSupply += _value;
+        balances[_address] += _value;
+    }
+
+    // Burn function
+    function burn(address _address, uint256 _value) public {
+        require(_address != address(0), "Invalid address");
+        require(balances[_address] >= _value, "Insufficient balance");
+
+        totalSupply -= _value;
+        balances[_address] -= _value;
+    }
+}
